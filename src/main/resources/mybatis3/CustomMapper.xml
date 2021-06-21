@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="custom">
+
+    <!-- 커스텀신발 완료사진 다운로드 -->
+    <select id="selectFname" statementType="PREPARED"
+            parameterType="Map" resultType="SHOETUDIO.spring.mvc.vo.Custom">
+        select ${order} fname1, uuid from pds
+        where pno = #{pno}
+    </select>
+
+</mapper>
