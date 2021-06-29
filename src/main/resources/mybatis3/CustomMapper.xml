@@ -5,14 +5,8 @@
     <select id="selectCustom" statementType="PREPARED"
             parameterType="int"
             resultType="SHOETUDIO.spring.mvc.vo.Custom">
-        select cno, sname, uuid
+        select cno, sname, fname
         from custom order by cno desc limit #{snum}, 12
-    </select>
-
-    <select id="selectOneCustom" statementType="PREPARED"
-            parameterType="String"
-            resultType="SHOETUDIO.spring.mvc.vo.Custom">
-        select * from custom where cno = #{cno}
     </select>
 
 </mapper>

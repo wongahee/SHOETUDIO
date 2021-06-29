@@ -1,10 +1,10 @@
 package SHOETUDIO.spring.mvc.vo;
 
-public class AboutUs {
+public class ContactUs {
 
     protected String name;
     protected String email;
-    protected String subject;
+    protected String findus;
     protected String message;
 
     public String getName() {
@@ -23,12 +23,12 @@ public class AboutUs {
         this.email = email;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getFindus() {
+        return findus;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setFindus(String findus) {
+        this.findus = findus;
     }
 
     public String getMessage() {

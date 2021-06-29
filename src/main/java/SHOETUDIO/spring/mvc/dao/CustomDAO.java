@@ -7,6 +7,5 @@ import java.util.List;
 public interface CustomDAO {
 
     List<Custom> selectCustom(int snum);
-    Custom selectOneCustom(String cno);
 
 }

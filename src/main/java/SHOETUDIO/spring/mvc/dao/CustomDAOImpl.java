@@ -17,9 +17,4 @@ public class CustomDAOImpl implements CustomDAO {
         return sqlSession.selectList("custom.selectCustom", snum);
     }
 
-    @Override
-    public Custom selectOneCustom(String cno) {
-        return sqlSession.selectOne("custom.selectOneCustom", cno);
-    }
-
 }

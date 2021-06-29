@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -6,14 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../css/normalise.css" />
     <link rel="stylesheet" type="text/css" href="../css/grid.css" />
-    <link rel="stylesheet" type="text/css" href="../css/ionicons.css"/>
     <link rel="stylesheet" type="text/css" href="/css/about_us.css" />
     <link rel="stylesheet" type="text/css" href="/css/queries.css" />
+    <link rel="stylesheet" type="text/css" href="/css/header-modal.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&display=swap"
       rel="stylesheet"
       type="text/css"
     />
+
     <title>Shoetudio-Home</title>
   </head>
   <body>
@@ -21,21 +26,25 @@
     <header>
       <nav>
         <div class="row">
+          <a href="/">
           <img
             src="/img/Shoetudio_logo.png"
             alt="Shoetudio"
             class="logo"
-          />
+          /></a>
           <ul class="main-nav">
-            <li><a href="home.html">About Us</a></li>
-            <li><a href="#">Custom</a></li>
-            <li><a href="#">Artist</a></li>
-            <li>
-              <a
-                href="/Users/josephlee/Desktop/shoetudio_team_project/teamproject/board/list.html"
-                >Community</a
-              >
-            </li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="/custom/list">Custom</a></li>
+            <li><a href="/artist/list">Artist</a></li>
+            <li><a href="/community/list">Community</a></li>
+        <c:if test="${empty UID}">
+            <li><a class="trigger3" id="11" style="cursor: pointer;
+            color: white; font-size: 20px">Log In</a></li>
+        </c:if>
+        <c:if test="${not empty UID}">
+            <li><a class="trigger4" id="22" style="cursor: pointer;
+            color: white; font-size: 20px">Log Out</a></li>
+        </c:if>
           </ul>
         </div>
       </nav>
@@ -44,8 +53,8 @@
           Design your own shoes at Shoetudio.&nbsp; Choose your colors,
           patterns,etc.&nbsp; Design a pair today!
         </h1>
-        <a class="btn btn-ghost" href="#">Make your own shoes</a>
-        <a class="btn btn-ghost" href="#">Custom Shoes Forum</a>
+        <a class="btn btn-ghost" href="/custom/list">Make your own shoes</a>
+        <a class="btn btn-ghost" href="/artist/list">Custom Shoes Forum</a>
       </div>
     </header>
 
@@ -438,13 +447,24 @@
               <label for="name">Name</label>
             </div>
             <div class="col span-2-of-3">
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Your Name"
-                required
-              />
+            <c:if test="${not empty UID}">
+                <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      value="${UID}"
+                      readonly
+                      style="background: darkgrey"
+                />
+              </c:if>
+              <c:if test="${empty UID}">
+                <input
+                      placeholder="Your Name"
+                      type="text"
+                      name="name"
+                      id="name"
+                />
+              </c:if>
             </div>
             <div class="row">
               <div class="col span-1-of-3">
@@ -457,16 +477,15 @@
                   id="email"
                   placeholder="Your Email"
                   required
-                  value=""
                 />
               </div>
             </div>
             <div class="row">
               <div class="col span-1-of-3">
-                <label for="find-us">How did you find us</label>
+                <label for="findus">How did you find us</label>
               </div>
               <div class="col span-2-of-3">
-                <select name="find-us" id="find-us">
+                <select name="findus" id="findus">
                   <option value="friends" selected>Friends</option>
                   <option value="search">Search Engine</option>
                   <option value="ad">Advertisement</option>
@@ -484,10 +503,11 @@
               </div>
               <div class="row">
                 <div class="col span-1-of-3">
-                  <label>Drop us a line</label>
+                  <label for="message">Drop us a line</label>
                 </div>
                 <div class="col span-2-of-3">
                   <textarea
+                    id="message"
                     name="message"
                     placeholder="Your message"
                   ></textarea>
@@ -498,7 +518,7 @@
                   <label>&nbsp;</label>
                 </div>
                 <div class="col span-2-of-3">
-                  <input type="submit" value="Send it!!" />
+                  <input type="submit" value="Send it!!" id="sendbtn" />
                 </div>
               </div>
             </div>
@@ -506,16 +526,17 @@
         </form>
       </div>
     </section>
+
     <!-- Footer -->
     <footer>
       <div class="row">
         <div class="col span-1-of-2">
           <ul class="footer-nav">
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Custom</a></li>
-            <li><a href="#">Artists</a></li>
-            <li><a href="#">Community</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/custom/list">Custom</a></li>
+            <li><a href="/artist/list">Artists</a></li>
+            <li><a href="/community/list">Community</a></li>
           </ul>
         </div>
         <div class="col span-1-of-2">
@@ -539,5 +560,50 @@
         <p>Copyright &copy; 2021 by Shoetudio. All rights reserved.</p>
       </div>
     </footer>
+
+      <%-- 로그인 모달 --%>
+      <div class="modal3">
+        <div class="modal-content3" style="height: 250px">
+          <span class="close-button3">&times;</span>
+          <form class="form" name="loginfrm2" id="loginfrm2" method="post">
+            <p stong>LOGIN</p>
+            <br/>
+            <div style="text-align: center">
+              <h6><span for="userid">아이디 :&nbsp;&nbsp;&nbsp;</span>
+                <input id="userid" name="userid" type="text" placeholder="아이디를 입력해주세요"
+                       style="width: 300px"></h6>
+            </div>
+            <br/>
+            <div style="text-align: center">
+              <h6><span for="upasswd">비밀번호 :</span>
+                <input id="upasswd" name="upasswd" type="password" placeholder="비밀번호를 입력해주세요"
+                       style="width: 300px; height: 38px"> </h6>
+            </div>
+            <br/>
+            <div class="modal-button" style="text-align: center">
+              <a href="#" id="loginbtn2">confirm</a>
+              <a href="/about">cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <%-- 로그아웃 모달 --%>
+      <div class="modal4">
+        <div class="modal-content4" style="height: 200px">
+          <span class="close-button4">&times;</span>
+          <form class="form" name="loginfrm3" id="loginfrm3" method="post">
+            <div style="text-align: center">
+              <h2>로그아웃 하시겠습니까?</h2>
+            </div>
+            <div class="modal-button" style="text-align: center">
+              <button class="lgm-btn1" type="button" id="logoutbtn"
+                      data-toggle="modal" data-target=".modal4">YES</button>
+              <button class="lgm-btn2"><a href="/about">NO</a></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
   </body>
 </html>
